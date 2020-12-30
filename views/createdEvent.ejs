@@ -1,0 +1,94 @@
+<%-include("./header")%>
+<div class="row">
+<%user.createdEvent.forEach(function(event){%>
+    <div class="col-sm-12">
+    <div class="card">
+<!-- <div class="card" style="width: 18rem;"> -->
+    <div class="card-body">
+      <h5 class="card-title"><%=event.name%></h5>
+      <h6 class="card-subtitle mb-2 text-muted" style="color: #b37c07;">(<%=event.users.length%> registrations so far)</h6>
+      <%allUser.forEach(function(oneUser){%>
+
+        <%event.users.forEach(function(userId){%>
+            <%if(oneUser._id.equals(userId)){%>
+      <p class="card-text"><%=oneUser.username%> (<%=oneUser.email%>)</p>
+      <p class="card-text"></p>
+      <%}%>
+        <%})%>
+        <%})%>
+        <form id="delete-form" class="card-link" action="/event/<%=event._id%>/delete" method="POST">
+            <button class="btn btn-xs btn-danger">Delete</button>
+          </form>
+        </div>
+    </div>
+  </div>
+<%});%>
+</div>
+    
+<!-- <div class="container row">
+<%user.createdEvent.forEach(function(event){%>
+    <div class="col-md-3">
+        <h1><%=event.name%></h1>
+        <p><%=event.users.length%></p>
+        <%allUser.forEach(function(oneUser){%>
+
+        <%event.users.forEach(function(userId){%>
+            <%if(oneUser._id.equals(userId)){%>
+        <p>
+            <%=oneUser.username%>
+        </p>
+        <%}%>
+        <%})%>
+        <%})%>
+        <form id="delete-form" action="/event/<%=event._id%>/delete" method="POST" style="display: inline;">
+            <button class="btn btn-xs btn-danger">Delete</button>
+          </form>
+    </div>
+    <%});%> -->
+    <!-- <%user.createdEvent.forEach(function(event){%>
+    <div id="<%-event._id%>" class="modal fade" role="dialog">
+        
+        <div class="modal-dialog">
+            
+            <div class="modal-content">
+                <div class="modal-header">
+                   
+                    <h4 class="modal-title">No.of members: <%=event.users.length %></h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Members:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% event.users.forEach(function(user) { %>
+                            <tr>
+                                <td ><span class="badge"><i class="fas fa-user"></i></span> <%= user.name %></a></td>
+                            </tr>
+                        <% }); %>
+                        <% if (event.users.length===0) { %>
+                            <tr>
+                                <td><em>No members yet.</em></td>
+                            </tr>
+                        <% } %>
+                        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+        <%});%>
+      </div> -->
+    
+     
+
+</div>
+
+
+
+<%-include("./footer")%>

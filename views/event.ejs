@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.16/jquery.timepicker.min.css" integrity="sha512-GgUcFJ5lgRdt/8m5A0d0qEnsoi8cDoF0d6q+RirBPtL423Qsj5cI9OxQ5hWvPi5jjvTLM/YhaaFuIeWCLi6lyQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./css/home.css">
+
+    
+    <title>eventFox</title>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbarr">
+        <div class="container-fluid">
+            <img src="./images/fox.png" height=40px width=40px alt="">
+          <a class="navbar-brand" href="/home"><span>event</span><span class="fox-text"  style="color: #b37c07; font-weight: 600;">Fox</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link createEvent active" aria-current="page" href="/createEvent">Create Event</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link logout" href="/logout">Logout</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <body>
+
+<div class="container container-body">
+    <div class="row justify-content-center perso">
+        <h1> Create a New Event !</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-5 col-lg-3">
+            <form action="/createEvent" method="POST">
+
+                    <div class="form-group form-text">
+                        <input type="text" placeholder="Name" name="name" style="font-size:14pt;height:40px" >
+                    </div>
+                    
+                    <div class="form-text">
+                        <input type="date" id="eventdate" name="date" style="font-size:14pt;height: 40px">
+                      
+                    </div>
+                    <div class= "form-text"><input type="text" id="timepicker" name="time" placeholder="Time" style="font-size:14pt;height: 40px"></div>
+                    
+                
+                    <div class="form-group form-text">
+                        <input type="text" placeholder="Venue" name="venue" style="font-size:14pt;height: 40px">
+                    </div>
+                    <div class="form-group form-text">
+                         <input type="text" placeholder="Description" name="description" style="font-size:14pt;height: 40px" class="event-description"> 
+                       <!--- <textarea rows="3" cols="35" name="description" placeholder="DESCRIPTION.."></textarea>-->
+                    </div>
+                    <div class="form-group form-text">
+                        <input type="text" placeholder="Image URL" name="image" style="font-size:14pt;height: 40px"> <br>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-md btn-primary" >CreateEvent</button>
+                </div>
+
+            </form>
+            <div class="go-back">
+                <a href="/home" style="color:#FFFF">Go Back</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.3.5/jquery.timepicker.min.js"></script>    
+<script>
+    $(function(){
+        var dtToday=new Date();
+        var month=dtToday.getMonth()+1;
+        var day=dtToday.getDate();
+        var year=dtToday.getFullYear();
+        if(month<10){
+            month='0'+day.tostring();
+        }
+        if(day<10){
+            day='0'+day.toString();
+        }
+        var minDate=year + '-' + month + '-' + day;
+        var maxDate=year + '-' + month + '-' + (day+14);
+        if(month==04||month==06||month==09||month==11){
+            if(day>16){
+                var add=30-day;
+                if(add<10){
+                    add='0'+add;
+                 }
+                var maxDate=year + '-' + (month+1) + '-' + (add);
+            }
+        }
+        else if(month==02){
+            if(day>14){
+                var add=30-day;
+                if(add<10){
+                    add='0'+add;
+                 }
+                var maxDate=year + '-' + (month+1) + '-' + (add);
+            }
+        }
+        else if(month==12){
+            if(day>17){
+                var add=31-day;
+                if(add<10){
+                    add='0'+add;
+                 }
+                var maxDate=(year+1) + '-' + '01' + '-' + (add);
+                console.log("yes")
+            }
+        }
+        else{
+            if(day>17){
+                var add=31-day;
+                if(add<10){
+                    add='0'+add;
+                 }
+                var maxDate=year + '-' + (month+1) + '-' + (add);
+            }
+        }
+        
+        $('#eventdate').attr('min',minDate);
+        $('#eventdate').attr('max',maxDate);
+        console.log(maxDate)
+        console.log(minDate)
+    });
+
+    // $('#timepicker').timepicker({
+    //     timeFormat: 'h:mm p',
+    //     interval:60,
+    //     minTime:'6',
+    //     maxTime:'5:00pm',
+    //     defaultTime:'11',
+    //     startTime:'6:00',
+    //     dynamic:false,
+    //     dropdown:true,
+    //     scrollbar:false    
+    // });
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" 
+integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" 
+integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
+</body>
+</html>
